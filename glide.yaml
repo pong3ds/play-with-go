@@ -1,0 +1,6 @@
+package: github.com/pong3ds/play-with-go
+import:
+- package: github.com/go-redis/redis
+  version: ^6.14.2
+- package: github.com/parnurzeal/gorequest
+  version: ^0.2.15
