@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -73,6 +74,40 @@ func (ts *BNKServiceTestSuite) TestGetBNKMembers_GivenJSON_ExpectMembers() {
 
 		is.Equal("CHRISTIN", mems[1].EnglishFirstname)
 		is.Equal("LARSEN", mems[1].EnglishLastname)
+	}
+
+	requester.AssertExpectations(ts.T())
+}
+
+func (ts *BNKServiceTestSuite) TestGetBNKMembers_GivenRequestError_ExpectError() {
+	requester := NewMockRequester()
+	requester.On("Get",
+		"https://raw.githubusercontent.com/whs/bnk48json/master/bnk48.json").
+		Return("", fmt.Errorf("Mock Error"))
+
+	bnkSvc := NewBNKService()
+	mems, err := bnkSvc.GetBNKMembers(requester)
+
+	is := assert.New(ts.T())
+	if is.Nil(mems) {
+		is.Equal("Error Request:Mock Error", err.Error())
+	}
+
+	requester.AssertExpectations(ts.T())
+}
+
+func (ts *BNKServiceTestSuite) TestGetBNKMembers_GivenInvalidJSON_ExpectError() {
+	requester := NewMockRequester()
+	requester.On("Get",
+		"https://raw.githubusercontent.com/whs/bnk48json/master/bnk48.json").
+		Return("<Invalid JSON>", nil)
+
+	bnkSvc := NewBNKService()
+	mems, err := bnkSvc.GetBNKMembers(requester)
+
+	is := assert.New(ts.T())
+	if is.Nil(mems) {
+		is.Equal("Error JSON:invalid character '<' looking for beginning of value", err.Error())
 	}
 
 	requester.AssertExpectations(ts.T())
