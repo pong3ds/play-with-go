@@ -2,10 +2,10 @@ package main
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"net/http"
 
-	"bitbucket.org/3dsinteractive/pam4-go/api/errors"
 	"github.com/parnurzeal/gorequest"
 	"github.com/pong3ds/play-with-go/members"
 )
@@ -34,7 +34,7 @@ func (r *Requester) Get(url string) (string, error) {
 	}
 
 	if resp.StatusCode != http.StatusOK {
-		return body, errors.New(fmt.Sprintf("HTTP Error code=%d", resp.StatusCode))
+		return body, fmt.Errorf("HTTP Error code=%d", resp.StatusCode)
 	}
 
 	return body, nil
