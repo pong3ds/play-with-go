@@ -1,9 +1,5 @@
 package main
 
-import (
-	"github.com/labstack/echo"
-)
-
 // AKBServiceHTTP is http service for AKB
 type AKBServiceHTTP struct{}
 
@@ -13,6 +9,6 @@ func NewAKBServiceHTTP() *AKBServiceHTTP {
 }
 
 // RegisterServices register all AKB services
-func (svc *AKBServiceHTTP) RegisterServices(e *echo.Echo) error {
+func (svc *AKBServiceHTTP) RegisterServices(e *Engine) error {
 	return nil
 }

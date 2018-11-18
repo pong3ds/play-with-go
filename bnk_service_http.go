@@ -2,8 +2,6 @@ package main
 
 import (
 	"net/http"
-
-	"github.com/labstack/echo"
 )
 
 // BNKServiceHTTP is http handler for BNK service
@@ -15,21 +13,27 @@ func NewBNKServiceHTTP() *BNKServiceHTTP {
 }
 
 // RegisterServices register all services for bnk http service
-func (svc *BNKServiceHTTP) RegisterServices(e *echo.Echo) error {
-	e.GET("/bnk48/members", svc.handleBNK48Members)
-	e.GET("/bnk48/senbetsu", svc.handleBNK48Senbetsu)
+func (svc *BNKServiceHTTP) RegisterServices(e *Engine) error {
+	e.GET("/bnk48/members", func(ctx IContext) error {
+		bnkSvc := NewBNKService(ctx)
+		return svc.handleBNK48Members(ctx, bnkSvc)
+	})
+
+	e.GET("/bnk48/senbetsu", func(ctx IContext) error {
+		bnkSvc := NewBNKService(ctx)
+		return svc.handleBNK48Senbetsu(ctx, bnkSvc)
+	})
 	return nil
 }
 
-func (svc *BNKServiceHTTP) handleBNK48Senbetsu(c echo.Context) error {
+func (svc *BNKServiceHTTP) handleBNK48Senbetsu(ctx IContext, bnkSvc IBNKService) error {
 	return nil
 }
 
-func (svc *BNKServiceHTTP) handleBNK48Members(c echo.Context) error {
-	bnkSvc := NewBNKService()
-	members, err := bnkSvc.GetBNKMembers(NewRequester())
+func (svc *BNKServiceHTTP) handleBNK48Members(ctx IContext, bnkSvc IBNKService) error {
+	members, err := bnkSvc.GetBNKMembers()
 	if err != nil {
-		c.Error(err)
+		return err
 	}
-	return c.JSONPretty(http.StatusOK, members, "  ")
+	return ctx.JSONPretty(http.StatusOK, members, "  ")
 }

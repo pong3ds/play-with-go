@@ -7,18 +7,28 @@ import (
 	"github.com/pong3ds/play-with-go/members"
 )
 
+// IBNKService is interface for BNK service
+type IBNKService interface {
+	GetBNKMembers() ([]*members.Member, error)
+}
+
 // BNKService is the service for BNK
-type BNKService struct{}
+type BNKService struct {
+	ctx IContext
+}
 
 // NewBNKService return new BNKService
-func NewBNKService() *BNKService {
-	return &BNKService{}
+func NewBNKService(ctx IContext) *BNKService {
+	return &BNKService{
+		ctx: ctx,
+	}
 }
 
 // GetBNKMembers return all bnk members receive from BNK Api
-func (svc *BNKService) GetBNKMembers(request IRequester) ([]*members.Member, error) {
-	body, err := request.Get("https://raw.githubusercontent.com/whs/bnk48json/master/bnk48.json")
+func (svc *BNKService) GetBNKMembers() ([]*members.Member, error) {
+	body, err := svc.ctx.Requester().Get("https://raw.githubusercontent.com/whs/bnk48json/master/bnk48.json")
 	if err != nil {
+		svc.ctx.Logger().Log(err.Error())
 		return nil, errors.New("Error Request:" + err.Error())
 	}
 

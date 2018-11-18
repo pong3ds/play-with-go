@@ -1,12 +1,8 @@
 package main
 
-import (
-	"github.com/labstack/echo"
-)
-
 // IService is interfaceo for any services
 type IService interface {
-	RegisterServices(e *echo.Echo) error
+	RegisterServices(e *Engine) error
 }
 
 func allServices() []IService {
@@ -17,7 +13,7 @@ func allServices() []IService {
 }
 
 func main() {
-	e := echo.New()
+	e := NewEngine()
 	services := allServices()
 	for _, service := range services {
 		service.RegisterServices(e)
