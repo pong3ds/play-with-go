@@ -1,18 +1,57 @@
-hash: 505432991848ac188e3bf28f8045f6d398dddfcd33713af1b3007c17ef6eeabd
-updated: 2018-11-18T14:47:25.219741+07:00
+hash: 9cf7d6c8a074eb9d06f417fdc8bebf1d1673e3e1195aaf8f52f70176a8f51e75
+updated: 2018-11-18T16:09:52.108211+07:00
 imports:
+- name: github.com/davecgh/go-spew
+  version: d8f796af33cc11cb798c1aaeb27a4ebc5099927d
+  subpackages:
+  - spew
 - name: github.com/go-redis/redis
   version: b3d9bf10f6666b2ee5100a6f3f84f4caf3b4e37d
+- name: github.com/labstack/echo
+  version: 2e9f4ea4e010fa328318107ba074b1b72381c571
+- name: github.com/labstack/gommon
+  version: 7fd9f68ece0bcb1a905fac8f1549f0083f71c51b
+  subpackages:
+  - color
+  - log
+- name: github.com/mattn/go-colorable
+  version: efa589957cd060542a26d2dd7832fd6a6c6c3ade
+- name: github.com/mattn/go-isatty
+  version: 3fb116b820352b7f0c281308a4d6250c22d94e27
 - name: github.com/moul/http2curl
   version: 9ac6cf4d929b2fa8fd2d2e6dec5bb0feb4f4911d
 - name: github.com/parnurzeal/gorequest
   version: a578a48e8d6ca8b01a3b18314c43c6716bb5f5a3
 - name: github.com/pkg/errors
   version: 059132a15dd08d6704c67711dae0cf35ab991756
+- name: github.com/pmezard/go-difflib
+  version: 792786c7400a136282c1664665ae0a8db921c6c2
+  subpackages:
+  - difflib
+- name: github.com/stretchr/objx
+  version: ef50b0de28773081167c97fc27cf29a0bf8b8c71
 - name: github.com/stretchr/testify
   version: f35b8ab0b5a2cef36673838d662e249dd9c94686
+  subpackages:
+  - assert
+  - mock
+  - require
+  - suite
+- name: github.com/valyala/bytebufferpool
+  version: cdfbe9377474227bb42120c1e22fd4433e7f69bf
+- name: github.com/valyala/fasttemplate
+  version: dcecefd839c4193db0d35b88ec65b4c12d360ab0
+- name: golang.org/x/crypto
+  version: 3d3f9f413869b949e48070b5bc593aa22cc2b8f2
+  subpackages:
+  - acme
+  - acme/autocert
 - name: golang.org/x/net
   version: adae6a3d119ae4890b46832a2e88a95adc62b8e7
   subpackages:
   - publicsuffix
+- name: golang.org/x/sys
+  version: 93218def8b18e66adbdab3eca8ec334700329f1f
+  subpackages:
+  - unix
 testImports: []

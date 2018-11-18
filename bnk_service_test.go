@@ -20,6 +20,14 @@ func TestBNKServiceTestSute(t *testing.T) {
 	suite.Run(t, NewBNKServiceTestSuite())
 }
 
+func (ts *BNKServiceTestSuite) SetupSuite() {
+	fmt.Println("Setup")
+}
+
+func (ts *BNKServiceTestSuite) TearDownSuite() {
+	fmt.Println("Teardown")
+}
+
 func (ts *BNKServiceTestSuite) TestGetBNKMembers_GivenJSON_ExpectMembers() {
 	requester := NewMockRequester()
 	requester.On("Get",

@@ -1,16 +1,26 @@
 package main
 
 import (
-	"fmt"
+	"github.com/labstack/echo"
 )
 
+// IService is interfaceo for any services
+type IService interface {
+	RegisterServices(e *echo.Echo) error
+}
+
+func allServices() []IService {
+	return []IService{
+		NewBNKServiceHTTP(),
+		NewAKBServiceHTTP(),
+	}
+}
+
 func main() {
-	bnkSvc := NewBNKService()
-	mems, err := bnkSvc.GetBNKMembers(NewRequester())
-	if err != nil {
-		fmt.Println("Error", err.Error())
+	e := echo.New()
+	services := allServices()
+	for _, service := range services {
+		service.RegisterServices(e)
 	}
-	for _, member := range mems {
-		fmt.Println(member.Nickname)
-	}
+	e.Start(":8080")
 }
