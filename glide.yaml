@@ -4,3 +4,5 @@ import:
   version: ^6.14.2
 - package: github.com/parnurzeal/gorequest
   version: ^0.2.15
+- package: github.com/stretchr/testify
+  version: ^1.2.2
